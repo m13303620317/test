@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="TestApp10.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TestApp10"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="ColorGrid">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Phone">
+                    <VisualState.Setters>
+                        <Setter Target="MessageTextBlock.(TextBlock.FontSize)" Value="16"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0" MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Tablet">
+                    <VisualState.Setters>
+                        <Setter Target="MessageTextBlock.(TextBlock.FontSize)" Value="36"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.Setters>
+                        <Setter Target="MessageTextBlock.(TextBlock.FontSize)" Value="54"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <TextBlock x:Name="MessageTextBlock"
+                   Text="Hello, VisualStateManager" />
+    </Grid>
+</Page>
