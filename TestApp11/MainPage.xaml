@@ -1,0 +1,151 @@
+﻿<Page
+    x:Class="TestApp11.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TestApp11"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="LayoutRoot">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="First.(Grid.Row)" Value="0" />
+                        <Setter Target="First.(Grid.Column)" Value="0" />
+                        <Setter Target="Second.(Grid.Row)" Value="0" />
+                        <Setter Target="Second.(Grid.Column)" Value="1" />
+                        <Setter Target="Third.(Grid.Row)" Value="0" />
+                        <Setter Target="Third.(Grid.Column)" Value="2" />
+
+                        <Setter Target="First.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="Second.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="Third.(Grid.ColumnSpan)" Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="First.(Grid.Row)" Value="0" />
+                        <Setter Target="First.(Grid.Column)" Value="0" />
+                        <Setter Target="Second.(Grid.Row)" Value="1" />
+                        <Setter Target="Second.(Grid.Column)" Value="0" />
+                        <Setter Target="Third.(Grid.Row)" Value="2" />
+                        <Setter Target="Third.(Grid.Column)" Value="0" />
+
+                        <Setter Target="First.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="Second.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="Third.(Grid.ColumnSpan)" Value="3" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="First" Margin="20,20,0,0">
+                    <Image Source="Assets/a.jpg" HorizontalAlignment="Left" />
+                    <TextBlock>This is some example information.</TextBlock>
+                </StackPanel>
+                <StackPanel x:Name="Second" Margin="20,20,0,0">
+                    <TextBlock TextWrapping="Wrap">
+                        Background task resource constraints
+Background tasks are lightweight. Keeping background execution to a minimum ensures the best user experience with foreground apps and battery life. This is enforced by applying resource constraints to background tasks.
+
+Background tasks are limited to 30 seconds of wall-clock usage.
+
+Memory constraints
+Due to the resource constraints for low-memory devices, background tasks may have a memory limit that determines the maximum amount of memory the background task can use. If your background task attempts an operation that would exceed this limit, the operation will fail and may generate an out-of-memory exception--which the task can handle. If the task does not handle the out-of-memory exception, or the nature of the attempted operation is such that an out-of-memory exception was not generated, then the task will be terminated immediately.
+
+You can use the MemoryManager APIs to query your current memory usage and limit in order to discover your cap (if any), and to monitor your background task's ongoing memory usage.
+
+Per-device limit for apps with background tasks for low-memory devices
+On memory-constrained devices, there is a limit to the number of apps that can be installed on a device and use background tasks at any given time. If this number is exceeded, the call to RequestAccessAsync, which is required to register all background tasks, will fail.
+
+Battery Saver
+Unless you exempt your app so that it can still run background tasks and receive push notifications when Battery Saver is on, the Battery Saver feature, when enabled, will prevent background tasks from running when the device is not connected to external power and the battery goes below a specified amount of power remaining. This will not prevent you from registering background tasks.
+
+However, for enterprise apps, and apps that will not be published in the Microsoft Store, see Run in the background indefinitely to learn how to use a capabilities to run a background task or extended execution session in the background indefinitely.
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel x:Name="Third" Grid.Row="2" Margin="20,20,0,0">
+                    <TextBlock TextWrapping="Wrap">
+                        Background task resource guarantees for real-time communication
+To prevent resource quotas from interfering with real-time communication functionality, background tasks using the ControlChannelTrigger and PushNotificationTrigger receive guaranteed CPU resource quotas for every running task. The resource quotas are as mentioned above, and remain constant for these background tasks.
+
+Your app doesn't have to do anything differently to get the guaranteed resource quotas for ControlChannelTrigger and PushNotificationTrigger background tasks. The system always treats these as critical background tasks.
+
+Maintenance trigger
+Maintenance tasks only run when the device is plugged in to AC power. For more info see Use a maintenance trigger.
+
+Background tasks for sensors and devices
+Your app can access sensors and peripheral devices from a background task with the DeviceUseTrigger class. You can use this trigger for long-running operations such as data synchronization or monitoring. Unlike tasks for system events, a DeviceUseTrigger task can only be triggered while your app is running in the foreground and no conditions can be set on it.
+
+ Important
+
+The DeviceUseTrigger and DeviceServicingTrigger cannot be used with in-process background tasks.
+
+Some critical device operations, such as long running firmware updates, cannot be performed with the DeviceUseTrigger. Such operations can be performed only on the PC, and only by a privileged app that uses the DeviceServicingTrigger. A privileged app is an app that the device's manufacturer has authorized to perform those operations. Device metadata is used to specify which app, if any, has been designated as the privileged app for a device. For more info, see Device sync and update for Microsoft Store device apps
+
+Managing background tasks
+Background tasks can report progress, completion, and cancellation to your app using events and local storage. Your app can also catch exceptions thrown by a background task, and manage background task registration during app updates. For more info see:
+
+Handle a cancelled background task
+Monitor background task progress and completion
+
+Check your background task registration during app launch. Ensure that your app's ungrouped background tasks are present in BackgroundTaskBuilder.AllTasks. Re-register the ones that are not present. Unregister any tasks that are no longer needed. This ensures that all background tasks registrations are up-to-date every time the app is launched.
+
+Related topics
+Conceptual guidance for multitasking in Windows 10
+
+Launching, resuming, and multitasking
+Related background task guidance
+
+Guidelines for background tasks
+Access sensors and devices from a background task
+Create and register an in-process background task
+Create and register an out-of-process background task
+Convert an out-of-process background task to an in-process background task
+Debug a background task
+Declare background tasks in the application manifest
+Group background task registration
+Handle a cancelled background task
+How to trigger suspend, resume, and background events in UWP apps (when debugging)
+Monitor background task progress and completion
+Play media in the background
+Register a background task
+Respond to system events with background tasks
+Run a background task on a timer
+Run a background task when your UWP app is updated
+Run in the background indefinitely
+Set conditions for running a background task
+Trigger a background task from your app
+Update a live tile from a background task
+Use a maintenance trigger
+
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
