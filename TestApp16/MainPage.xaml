@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="TestApp16.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TestApp16"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel>
+            <Button x:Name="SendToast" Content="Send a toast..." Click="SendToast_Click" Margin="20,20,0,0" />
+            <Button x:Name="SendSecondToast" Content="Send a toast contains image..." Click="SendSecondToast_Click" Margin="20,20,0,0" />
+            <Button x:Name="SendThirdToast" Content="Send a toast contains logo..." Click="SendThirdToast_Click" Margin="20,20,0,0" />
+            <Button x:Name="SendForthToast" Content="Send a toast contains circle image..." Click="SendForthToast_Click" Margin="20,20,0,0" />
+        </StackPanel>
+    </Grid>
+</Page>
